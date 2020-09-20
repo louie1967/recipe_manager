@@ -5,17 +5,29 @@
   <%= @recipe.name %>
 </h1>
 
+<h3>
+  Created by 
+  <%= @recipe.user.email %>
+</h3>
+
 <br>
 
 <h2>Ingredients</h2>
 
 <% @recipe.ingredients.each do |ingredient| %>
-    <p><%= ingredient.quantity %> <%= ingredient.unit %> of <%= ingredient.name %>  | <%= link_to 'Delete', ingredient, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+    <p><%= ingredient.quantity %> <%= ingredient.unit %> of <%= ingredient.name %> 
+    <% if @recipe.user == current_user %>
+          | <%= link_to 'Delete', ingredient, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+    </p>
+        
 <% end %>
 
-
+<% if @recipe.user == current_user %>
 <br>
 <%= link_to "Add Ingredients", new_ingredient_path(recipe_id: @recipe.id) %>
 <br><br>
 <%= link_to 'Edit', edit_recipe_path(@recipe) %> |
+<% end %>
+
 <%= link_to 'Back', recipes_path %>

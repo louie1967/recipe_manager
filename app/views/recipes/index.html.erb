@@ -1,11 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<h1>My Recipes</h1>
+<h1>All Recipes</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Recipe name</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,7 +16,7 @@
         <td><%= recipe.name %></td>
 
         <td><%= link_to 'Show', recipe %></td>
-        <% if user_signed_in? %>
+        <% if recipe.user == current_user %>
         <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td>
         <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
@@ -30,6 +30,8 @@
 <br>
 <% if user_signed_in? %>
     <%= link_to 'New Recipe', new_recipe_path %>
+    <br><br>
+    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
 <% else %>
     <%= link_to "Sign up", new_user_registration_path %> | 
     <%= link_to "Sign in", new_user_session_path %>
